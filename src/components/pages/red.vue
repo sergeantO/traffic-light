@@ -1,14 +1,14 @@
 <template lang="pug">
   div
-    trafficLight(
-      activeColor="red"
-    )
+    trafficLight(activeColor="red")
+    timmer(maxtime=10)
 </template>
 
 <script>
 import trafficLight from '../traffic-light.vue'
+import timmer from '../timmer'
 export default {
-  components: { trafficLight },
+  components: { trafficLight, timmer },
   mounted () {
     let time = 10
     setTimeout(() => {
