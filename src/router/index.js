@@ -24,7 +24,6 @@ export default new Router({
       path: '/yellow',
       name: 'yellow',
       component: Yellow
-    },
-
+    }
   ]
 })
