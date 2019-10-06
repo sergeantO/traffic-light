@@ -29,45 +29,47 @@ export default {
     return {
       colors: {
         'red': {
-          maxtime: 6,
+          colorTime: 10,
           nextColor: 'yellow'
         },
         'yellow': {
-          maxtime: 7,
+          colorTime: 3,
           nextColor: 'green'
         },
         'green': {
-          maxtime: 5,
+          colorTime: 15,
           nextColor: 'red'
         }
       },
+
       leftTime: 100,
       isActiveFlicker: false
     }
   },
   mounted () {
-    this.leftTime = this.maxtime
+    this.leftTime = localStorage.getItem('leftTime') || this.colorTime
     setInterval(() => { this.leftTime-- }, 1000)
   },
   watch: {
     leftTime (newVal, oldVal) {
+      localStorage.setItem('leftTime', newVal)
+
       if (newVal < 1) {
         this.$router.push(`/${this.nextColor}`)
-        this.leftTime = this.maxtime
+        this.leftTime = this.colorTime
         this.isActiveFlicker = false
       } else if (newVal <= 3) {
         this.isActiveFlicker = true
-      } else {
-        this.isActiveFlicker = false
       }
     }
   },
   computed: {
     activeColor () {
+      localStorage.setItem('color', this.$route.params.color)
       return this.$route.params.color
     },
-    maxtime () {
-      return this.colors[this.activeColor].maxtime
+    colorTime () {
+      return this.colors[this.activeColor].colorTime
     },
     nextColor () {
       return this.colors[this.activeColor].nextColor
@@ -79,9 +81,10 @@ export default {
 <style lang="scss" scoped>
 .box {
   background-color: #555;
-  margin: 0 auto;
+  margin: 20px auto;
   max-width: 250px;
   padding: 10px;
+  border-radius: 3px;
 }
 
 .timmer {
@@ -89,6 +92,6 @@ export default {
   border-radius: 3px;
   max-width: 150px;
   margin: 10px auto;
-  padding: 3px;
+  padding: 10px;
 }
 </style>
