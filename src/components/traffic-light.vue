@@ -1,8 +1,8 @@
 <template lang="pug">
   .box
-    .circle.red(:class="{ active: activeColor==='red' }")
-    .circle.yellow(:class="{ active: activeColor==='yellow' }")
-    .circle.green(:class="{ active: activeColor==='green' }")
+    .circle.red(:class="{ active: isActive('red') }")
+    .circle.yellow(:class="{ active: isActive('yellow') }")
+    .circle.green(:class="{ active: isActive('green') }")
 
 </template>
 
@@ -17,6 +17,11 @@ export default {
     time: {
       type: Number,
       required: true
+    }
+  },
+  methods: {
+    isActive (color) {
+      return (this.activeColor === color)
     }
   }
 }

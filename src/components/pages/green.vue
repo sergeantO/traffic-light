@@ -8,7 +8,13 @@
 <script>
 import trafficLight from '../traffic-light.vue'
 export default {
-  components: { trafficLight }
+  components: { trafficLight },
+  mounted () {
+    let time = 15
+    setTimeout(() => {
+      this.$router.push('/red')
+    }, time * 1000)
+  }
 }
 </script>
 
