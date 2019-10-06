@@ -1,60 +1,65 @@
 <template lang="pug">
-  .box
-    .circle.red(:class="{ active: isActive('red') }")
-    .circle.yellow(:class="{ active: isActive('yellow') }")
-    .circle.green(:class="{ active: isActive('green') }")
-
+  .circle(:class="[ color, isActive() ? 'active' : '' ]")
 </template>
 
 <script>
 export default {
   name: 'traffic-light',
   props: {
+    color: {
+      type: String,
+      required: true
+    },
     activeColor: {
       type: String,
       required: true
     },
-    time: {
-      type: Number,
+    flick: {
+      type: Boolean,
       required: true
     }
   },
+  data () {
+    return {
+      lightIsOn: true
+    }
+  },
+  mounted () {
+    setInterval(() => {
+      if (this.flick) {
+        this.lightIsOn = !this.lightIsOn
+      }
+    }, 500)
+  },
   methods: {
-    isActive (color) {
-      return (this.activeColor === color)
+    isActive () {
+      return (this.activeColor === this.color && this.lightIsOn)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.box {
-  background-color: #555;
-  margin: 0 auto;
-  max-width: 40%;
-  padding: 10px;
+.circle {
+  margin: 5px auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  opacity: 0.3;
 
-  .circle {
-    margin: 5px auto;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 2px solid #ddd;
-    opacity: 0.3;
+  &.active {
+    opacity: 1;
+  }
 
-    &.active {
-      opacity: 1;
-    }
-
-    &.red {
-      background-color: red;
-    }
-    &.yellow {
-      background-color: yellow;
-    }
-    &.green {
-      background-color: green;
-    }
+  &.red {
+    background-color: red;
+  }
+  &.yellow {
+    background-color: yellow;
+  }
+  &.green {
+    background-color: green;
   }
 }
 </style>
