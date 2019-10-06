@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import page from '@/components/page.vue'
 
 Vue.use(Router)
-let savedPath = localStorage.getItem('color')
+let savedPath = localStorage.getItem('color') || 'red'
 
 export default new Router({
   mode: 'history',
