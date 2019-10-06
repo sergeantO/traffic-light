@@ -1,12 +1,14 @@
 <template lang="pug">
   div
-    trafficLight(activeColor="yellow")
+    trafficLight(
+      activeColor="yellow"
+    )
 </template>
 
 <script>
 import trafficLight from '../traffic-light.vue'
 export default {
-  components: { trafficLight },
+  components: { trafficLight }
 }
 </script>
 
